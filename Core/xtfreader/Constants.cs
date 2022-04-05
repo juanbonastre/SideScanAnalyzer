@@ -1,0 +1,91 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SideScanAnalyzer.Core.xtfreader
+{
+
+    internal enum Constants
+    {
+        // Some position of packages
+        XTF_CHANINFO_START_POS = 256,
+        // Magic number used in data packets for sanity check
+        MAGIC_NUMBER = 64206
+    }
+    internal enum Sizes
+    {
+        XTF_FILE_HEADER_SIZE = 1024,
+        XTF_CHANINFO_SIZE = 128,
+        XTF_NOTES_HEADER_SIZE = 256,
+        XTF_PING_HEADER_SIZE = 256,
+        XTF_PING_CHAN_HEADER_SIZE = 64
+    }
+
+    internal enum PacketTypes
+    {
+        XTF_HEADER_SONAR = 0,
+        XTF_HEADER_NOTES = 1,
+        XTF_HEADER_BATHY = 2,
+        XTF_HEADER_ATTITUDE = 3,
+        XTF_HEADER_FORWARD = 4,
+        XTF_HEADER_ELAC = 5,
+        XTF_HEADER_RAW_SERIAL = 6,
+        XTF_HEADER_EMBED_HEAD = 7,
+        XTF_HEADER_HIDDEN_SONAR = 8,
+        XTF_HEADER_SEAVIEW_PROCESSED_BATHY = 9,
+        XTF_HEADER_SEAVIEW_DEPTHS = 10,
+        XTF_HEADER_RSVD_HIGHSPEED_SENSOR = 11,
+        XTF_HEADER_ECHOSTRENGTH = 12,
+        XTF_HEADER_GEOREC = 13,
+        XTF_HEADER_KLEIN_RAW_BATHY = 14,
+        XTF_HEADER_HIGHSPEED_SENSOR2 = 15,
+        XTF_HEADER_ELAC_XSE = 16,
+        XTF_HEADER_BATHY_XYZA = 17,
+        XTF_HEADER_K5000_BATHY_IQ = 18,
+        XTF_HEADER_BATHY_SNIPPET = 19,
+        XTF_HEADER_GPS = 20,
+        XTF_HEADER_STAT = 21,
+        XTF_HEADER_SINGLEBEAM = 22,
+        XTF_HEADER_GYRO = 23,
+        XTF_HEADER_TRACKPOINT = 24,
+        XTF_HEADER_MULTIBEAM = 25,
+        XTF_HEADER_Q_SINGLEBEAM = 26,
+        XTF_HEADER_Q_MULTITX = 27,
+        XTF_HEADER_Q_MULTIBEAM = 28,
+        XTF_HEADER_SOURCETIME_NAVIGATION = 42,
+        XTF_HEADER_EXTENDED_NAVIGATION = 43,
+        XTF_HEADER_TIME = 50,
+        XTF_HEADER_BENTHOS_CAATI_SARA = 60,
+        XTF_HEADER_7125 = 61,
+        XTF_HEADER_7125_SNIPPET = 62,
+        XTF_HEADER_SWATHPLUS_BATHY = 63,
+        XTF_HEADER_QINSY_R2SONIC_BATHY = 65,
+        XTF_HEADER_QINSY_R2SONIC_FTS = 66,
+        XTF_HEADER_R2SONICS_TRUEPIX = 67,
+        XTF_HEADER_R2SONIC_BATHY = 68,
+        XTF_HEADER_R2SONIC_FTS = 69,
+        XTF_HEADER_CODA_ECHOSCOPE_DATA = 70,
+        XTF_HEADER_CODA_ECHOSCOPE_CONFIG = 71,
+        XTF_HEADER_CODA_ECHOSCOPE_IMAGE = 72,
+        XTF_HEADER_EDGETECH_4600 = 73,
+        XTF_HEADER_EMRAW_BEAMANGLE = 74,
+        XTF_HEADER_KLEIN5KV2_BATH = 75,
+        XTF_HEADER_SOLSTICE = 76,
+        XTF_HEADER_EMRAW_BEAMANGLE_66 = 77,
+        XTF_HEADER_RESON_7018_WATERCOLUMN = 78,
+        XTF_HEADER_R2SONIC_WATERCOLUMN = 79,
+        XTF_HEADER_SOURCETIME_GYRO = 84,
+        XTF_HEADER_POSITION = 100,
+        XTF_HEADER_BATHY_PROC = 102,
+        XTF_HEADER_ATTITUDE_PROC = 103,
+        XTF_HEADER_SINGLEBEAM_PROC = 104,
+        XTF_HEADER_AUX_PROC = 105,
+        XTF_HEADER_KLEIN3000_DATA_PAGE = 106,
+        XTF_HEADER_POS_RAW_NAVIGATION = 107,
+        XTF_HEADER_KLEINV4_DATA_PAGE = 108,
+        XTF_RAW_CUSTOMER_HEADER = 199,
+    }
+}
