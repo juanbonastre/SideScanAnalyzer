@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SideScanAnalyzer.Core.xtfreader.DataPackets;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -77,13 +78,58 @@ namespace SideScanAnalyzer.Core.xtfreader
                                 int ePos = sPos + dataBytesSize;
 
                                 this.pingPacketsManager.AddPing((int)pingChanHeaderChannelNumber, byteArray[sPos..ePos], xtfChanInfo.BytesPerSample);
-                                lastPingChanSize = (int)Sizes.XTF_PING_CHAN_HEADER_SIZE + dataBytesSize; 
+                                lastPingChanSize = (int)Sizes.XTF_PING_CHAN_HEADER_SIZE + dataBytesSize;
                                 /*if ping_chan_header_NumSamples>self.max_n_samples:
                                     self.max_n_samples = ping_chan_header_NumSamples*/
+
+                                /*XTFPingHeader a = new XTFPingHeader(byteArray[i..(i+256)], this.xtfFileHeader.xtfChanInfoList);
+                                Trace.WriteLine(a.ToString());*/
+                                /*XTFPingChanHeader a = new XTFPingChanHeader(byteArray[(i+256)..(i+(int)pingHeaderNumBytesThisRecord)], this.xtfFileHeader.xtfChanInfoList);
+                                Trace.WriteLine(a.ToString());*/
+                                /*MessageBox.Show("NORMAL [" + j + "]"
+                                    + "\ni: " + i
+                                    + "\nCHAN NUMBER "+pingChanHeaderChannelNumber.ToString()
+                                    + "\nNUM SAMPLES "+pingChanHeaderNumSamples.ToString()
+                                    + "\nBYTES PER SAMPLE "+xtfChanInfo.BytesPerSample.ToString()
+                                    + "\nNUMBYTES THIS RECORD "+pingHeaderNumBytesThisRecord
+                                    + "\nSPOS: "+sPos+"\nEPOS "+ePos+"\nSIZE "+(ePos-sPos));*/
                             }
                             this.nPings++;
                             break;
                         case (int)PacketTypes.XTF_HEADER_KLEINV4_DATA_PAGE:
+                            break;
+                            this.xtfFileHeader.xtfChanInfoList[0].BytesPerSample = 1;
+                            pingHeaderNumChansToFollow = BitConverter.ToUInt16(byteArray[(i+4)..(i+6)]);
+                            pingHeaderNumBytesThisRecord = BitConverter.ToUInt32(byteArray[(i+10)..(i+14)]);
+                            lastPingChanSize = 0;
+                            for (int j = 0; j<pingHeaderNumChansToFollow; j++)
+                            {
+                                int sPos = i+(int)Sizes.XTF_PING_HEADER_SIZE + lastPingChanSize*j;
+                                uint pingChanHeaderChannelNumber = BitConverter.ToUInt16(byteArray[(sPos)..(sPos+2)]);
+                                uint pingChanHeaderNumSamples = BitConverter.ToUInt32(byteArray[(sPos+42)..(sPos+46)]);
+
+                                XTFChanInfo xtfChanInfo = this.xtfFileHeader.xtfChanInfoList.Find(ch => ch.SubChannelNumber == pingChanHeaderChannelNumber);
+
+                                sPos = sPos+(int)Sizes.XTF_PING_CHAN_HEADER_SIZE;
+                                int dataBytesSize = (int)pingChanHeaderNumSamples * xtfChanInfo.BytesPerSample;
+                                int ePos = sPos + dataBytesSize;
+
+                                this.pingPacketsManager.AddPing((int)pingChanHeaderChannelNumber, byteArray[sPos..ePos], xtfChanInfo.BytesPerSample);
+                                lastPingChanSize = (int)Sizes.XTF_PING_CHAN_HEADER_SIZE + dataBytesSize;
+
+                                /*XTFPingHeader a = new XTFPingHeader(byteArray[i..(i+256)], this.xtfFileHeader.xtfChanInfoList);
+                                Trace.WriteLine(a.ToString());*/
+                                /*XTFPingChanHeader a = new XTFPingChanHeader(byteArray[(i+256)..(i+2000)], this.xtfFileHeader.xtfChanInfoList);
+                                Trace.WriteLine(a.ToString());*/
+                                /*MessageBox.Show("KLEIN [" + j + "]"
+                                    + "\ni: " + i
+                                    + "\nCHAN NUMBER "+pingChanHeaderChannelNumber.ToString()
+                                    + "\nNUM SAMPLES "+pingChanHeaderNumSamples.ToString()
+                                    + "\nBYTES PER SAMPLE "+xtfChanInfo.BytesPerSample.ToString()
+                                    + "\nNUMBYTES THIS RECORD "+pingHeaderNumBytesThisRecord
+                                    + "\nSPOS: "+sPos+"\nEPOS "+ePos+"\nSIZE "+(ePos-sPos));*/
+                            }
+                            this.nPings++;
                             break;
                         default:
                             MessageBox.Show("Header not found");
@@ -96,8 +142,6 @@ namespace SideScanAnalyzer.Core.xtfreader
 
             TimeSpan stopwatchElapsed = stopwatch.Elapsed;
             float time = ((float)Convert.ToInt32(stopwatchElapsed.TotalMilliseconds)/1000);
-            Trace.WriteLine(time.ToString());
-
             Trace.WriteLine("Time reading file passed: " + time.ToString());
             //Trace.WriteLine("Data Packets: " + this.pingPacketsManager.processedData[0].Count);
 

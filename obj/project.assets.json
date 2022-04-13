@@ -20,6 +20,15 @@
           }
         }
       },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
       "System.Drawing.Common/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -43,6 +52,23 @@
             "assetType": "runtime",
             "rid": "win"
           }
+        }
+      },
+      "WindowsAPICodePack/1.1.2": {
+        "type": "package",
+        "compile": {
+          "lib/Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll": {},
+          "lib/Microsoft.WindowsAPICodePack.Sensors.dll": {},
+          "lib/Microsoft.WindowsAPICodePack.Shell.dll": {},
+          "lib/Microsoft.WindowsAPICodePack.ShellExtensions.dll": {},
+          "lib/Microsoft.WindowsAPICodePack.dll": {}
+        },
+        "runtime": {
+          "lib/Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll": {},
+          "lib/Microsoft.WindowsAPICodePack.Sensors.dll": {},
+          "lib/Microsoft.WindowsAPICodePack.Shell.dll": {},
+          "lib/Microsoft.WindowsAPICodePack.ShellExtensions.dll": {},
+          "lib/Microsoft.WindowsAPICodePack.dll": {}
         }
       }
     }
@@ -75,6 +101,33 @@
         "runtimes/win/lib/netcoreapp3.1/Microsoft.Win32.SystemEvents.dll",
         "runtimes/win/lib/netcoreapp3.1/Microsoft.Win32.SystemEvents.xml",
         "useSharedDesignerContext.txt"
+      ]
+    },
+    "Newtonsoft.Json/13.0.1": {
+      "sha512": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
       ]
     },
     "System.Drawing.Common/6.0.0": {
@@ -115,11 +168,31 @@
         "system.drawing.common.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "WindowsAPICodePack/1.1.2": {
+      "sha512": "1POQrQOlLPB996AmezxnzLp1okN4gnuDsF6b3ka5dPassA139sJwL80fJGkleRMDzUCAU0rjmBc/2ZievbPhxQ==",
+      "type": "package",
+      "path": "windowsapicodepack/1.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/Windows Logo.png",
+        "content/license.txt",
+        "lib/Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll",
+        "lib/Microsoft.WindowsAPICodePack.Sensors.dll",
+        "lib/Microsoft.WindowsAPICodePack.Shell.dll",
+        "lib/Microsoft.WindowsAPICodePack.ShellExtensions.dll",
+        "lib/Microsoft.WindowsAPICodePack.dll",
+        "windowsapicodepack.1.1.2.nupkg.sha512",
+        "windowsapicodepack.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "System.Drawing.Common >= 6.0.0"
+      "Newtonsoft.Json >= 13.0.1",
+      "System.Drawing.Common >= 6.0.0",
+      "WindowsAPICodePack >= 1.1.2"
     ]
   },
   "packageFolders": {
@@ -166,9 +239,17 @@
       "net6.0-windows7.0": {
         "targetAlias": "net6.0-windows",
         "dependencies": {
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.1, )"
+          },
           "System.Drawing.Common": {
             "target": "Package",
             "version": "[6.0.0, )"
+          },
+          "WindowsAPICodePack": {
+            "target": "Package",
+            "version": "[1.1.2, )"
           }
         },
         "imports": [
@@ -192,5 +273,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'WindowsAPICodePack 1.1.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "WindowsAPICodePack",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    }
+  ]
 }

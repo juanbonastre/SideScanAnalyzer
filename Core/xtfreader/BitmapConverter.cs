@@ -56,7 +56,7 @@ namespace SideScanAnalyzer.Core.xtfreader
             return im;
         }
 
-        public static Bitmap ConvertToBitmap(List<int[]> pingsList, int maxValue)
+        public static DirectBitmap ConvertToBitmap(List<int[]> pingsList, int maxValue)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -88,7 +88,19 @@ namespace SideScanAnalyzer.Core.xtfreader
             time = ((float)Convert.ToInt32(stopwatchElapsed.TotalMilliseconds)/1000);
             Trace.WriteLine("BITMAPCONVERTER 2: " + time.ToString());
 
-            return bitmap.Bitmap;
+            return bitmap;
+        }
+
+        public static DirectBitmap MergedBitmaps(DirectBitmap bmp1, DirectBitmap bmp2)
+        {
+            DirectBitmap result = new DirectBitmap(bmp1.Width + bmp2.Width,
+                                       Math.Max(bmp1.Height, bmp2.Height));
+            using (Graphics g = Graphics.FromImage(result.Bitmap))
+            {
+                g.DrawImage(bmp1.Bitmap, Point.Empty);
+                g.DrawImage(bmp2.Bitmap, new Point(bmp1.Width, 0));
+            }
+            return result;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -27,6 +28,16 @@ namespace SideScanAnalyzer.Core
                 return Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             }
             finally { DeleteObject(handle); }
+        }
+
+        public static bool CheckJSONAttributes(JObject json, List<string> attributes)
+        {
+            foreach(string attribute in attributes)
+            {
+                if (!json.ContainsKey(attribute))
+                    return false;
+            }
+            return true;
         }
     }
 }

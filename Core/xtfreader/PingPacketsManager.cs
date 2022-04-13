@@ -36,10 +36,19 @@ namespace SideScanAnalyzer.Core.xtfreader
         {
             EnsureSize(channelNumber+1);
             int[] intArray = new int[byteArray.Length/bytesPerSample];
-            for (int j = 0; j<byteArray.Length; j+=2)
+            for (int j = 0; j<byteArray.Length; j+=bytesPerSample)
             {
-                int jPos = j/2;
-                int value = BitConverter.ToUInt16(byteArray[j..(j+bytesPerSample)]);
+                int jPos = j/bytesPerSample;
+                int value = 0;
+                switch (bytesPerSample)
+                {
+                    case 2:
+                        value = BitConverter.ToUInt16(byteArray[j..(j+bytesPerSample)]);
+                        break;
+                    case 1:
+                        value = BitConverter.ToInt16(new byte[] { byteArray[j], 0 });
+                        break;
+                }
                 intArray[jPos] = value;
                 if(value > maxValue)
                 {

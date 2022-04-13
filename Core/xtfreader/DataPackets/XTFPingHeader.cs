@@ -87,15 +87,6 @@ namespace SideScanAnalyzer.Core.xtfreader.DataPackets
         public uint OptionalOffset;
         public int CableOutHundredths;
         public byte[] ReservedSpace2;
-        public XTFPingHeader(byte[] byte_array)
-        {
-
-        }
-        public XTFPingHeader()
-        {
-
-        }
-
         public XTFPingHeader(byte[] byte_array, List<XTFChanInfo> xtfChanInfoList) : base(byte_array)
         {
             this.SubChannelNumber = BitConverter.ToInt16(new byte[] { byte_array[3], 0});
@@ -176,7 +167,7 @@ namespace SideScanAnalyzer.Core.xtfreader.DataPackets
             this.CableOutHundredths = BitConverter.ToInt16(new byte[] { byte_array[249], 0 });
             this.ReservedSpace2 = byte_array[250..256];
 
-            this.xtfPingChanHeaderList = new List<XTFPingChanHeader>();
+            /*this.xtfPingChanHeaderList = new List<XTFPingChanHeader>();
             int lastDataSize = 0;
             for (int i=0; i<this.NumChansToFollow; i++)
             {
@@ -187,7 +178,7 @@ namespace SideScanAnalyzer.Core.xtfreader.DataPackets
 
                 XTFChanInfo xtfChanInfo = xtfChanInfoList.Find(ch => ch.SubChannelNumber == xtfPingChanHeader.ChannelNumber);
                 lastDataSize = (int)xtfPingChanHeader.NumSamples * xtfChanInfo.BytesPerSample;
-            }
+            }*/
         }
 
         public override string ToString()

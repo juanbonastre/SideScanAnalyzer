@@ -62,37 +62,37 @@ namespace SideScanAnalyzer.Core.xtfreader.DataPackets
 
             XTFChanInfo xtfChanInfo = xtfChanInfoList.Find(ch => ch.SubChannelNumber == this.ChannelNumber);
 
-            int e_pos = (int)Sizes.XTF_PING_CHAN_HEADER_SIZE + (int)this.NumSamples * xtfChanInfo.BytesPerSample;
-            this.data_bytes = byte_array[(int)Sizes.XTF_PING_CHAN_HEADER_SIZE.. e_pos];
+            int ePos = (int)Sizes.XTF_PING_CHAN_HEADER_SIZE + (int)this.NumSamples * xtfChanInfo.BytesPerSample;
+            this.data_bytes = byte_array[(int)Sizes.XTF_PING_CHAN_HEADER_SIZE..ePos];
         }
 
         public override string ToString()
         {
             string xtfPingChanHeaderString = base.ToString();
             xtfPingChanHeaderString += "\n\tXTF PING CHAN HEADER";
-            xtfPingChanHeaderString += "\n\t\tChannelNumber: {}" + this.ChannelNumber;
-            xtfPingChanHeaderString += "\n\t\tDownsampleMethod: {}" + this.DownsampleMethod;
-            xtfPingChanHeaderString += "\n\t\tSlantRange: {}" + this.SlantRange;
-            xtfPingChanHeaderString += "\n\t\tGroundRange: {}" + this.GroundRange;
-            xtfPingChanHeaderString += "\n\t\tTimeDelay: {}" + this.TimeDelay;
-            xtfPingChanHeaderString += "\n\t\tTimeDuration: {}" + this.TimeDuration;
-            xtfPingChanHeaderString += "\n\t\tSecondsPerPing: {}" + this.SecondsPerPing;
-            xtfPingChanHeaderString += "\n\t\tProcessingFlags: {}" + this.ProcessingFlags;
-            xtfPingChanHeaderString += "\n\t\tFrequency: {}" + this.Frequency;
-            xtfPingChanHeaderString += "\n\t\tInitialGainCode: {}" + this.InitialGainCode;
-            xtfPingChanHeaderString += "\n\t\tGainCode: {}" + this.GainCode;
-            xtfPingChanHeaderString += "\n\t\tBandWidth: {}" + this.BandWidth;
-            xtfPingChanHeaderString += "\n\t\tContactNumber: {}" + this.ContactNumber;
-            xtfPingChanHeaderString += "\n\t\tContactClassification: {}" + this.ContactClassification;
-            xtfPingChanHeaderString += "\n\t\tContactSubNumber: {}" + this.ContactSubNumber;
-            xtfPingChanHeaderString += "\n\t\tContactType: {}" + this.ContactType;
-            xtfPingChanHeaderString += "\n\t\tNumSamples: {}" + this.NumSamples;
-            xtfPingChanHeaderString += "\n\t\tMillivoltScale: {}" + this.MillivoltScale;
-            xtfPingChanHeaderString += "\n\t\tContactTimeOffTrack: {}" + this.ContactTimeOffTrack;
-            xtfPingChanHeaderString += "\n\t\tContactCloseNumber: {}" + this.ContactCloseNumber;
-            xtfPingChanHeaderString += "\n\t\tReserved2: {}" + this.Reserved2;
-            xtfPingChanHeaderString += "\n\t\tFixedVSOP: {}" + this.FixedVSOP;
-            xtfPingChanHeaderString += "\n\t\tWeight: {}" + this.Weight;
+            xtfPingChanHeaderString += "\n\t\tChannelNumber: " + this.ChannelNumber;
+            xtfPingChanHeaderString += "\n\t\tDownsampleMethod: " + this.DownsampleMethod;
+            xtfPingChanHeaderString += "\n\t\tSlantRange: " + this.SlantRange;
+            xtfPingChanHeaderString += "\n\t\tGroundRange: " + this.GroundRange;
+            xtfPingChanHeaderString += "\n\t\tTimeDelay: " + this.TimeDelay;
+            xtfPingChanHeaderString += "\n\t\tTimeDuration: " + this.TimeDuration;
+            xtfPingChanHeaderString += "\n\t\tSecondsPerPing: " + this.SecondsPerPing;
+            xtfPingChanHeaderString += "\n\t\tProcessingFlags: " + this.ProcessingFlags;
+            xtfPingChanHeaderString += "\n\t\tFrequency: " + this.Frequency;
+            xtfPingChanHeaderString += "\n\t\tInitialGainCode: " + this.InitialGainCode;
+            xtfPingChanHeaderString += "\n\t\tGainCode: " + this.GainCode;
+            xtfPingChanHeaderString += "\n\t\tBandWidth: " + this.BandWidth;
+            xtfPingChanHeaderString += "\n\t\tContactNumber: " + this.ContactNumber;
+            xtfPingChanHeaderString += "\n\t\tContactClassification: " + this.ContactClassification;
+            xtfPingChanHeaderString += "\n\t\tContactSubNumber: " + this.ContactSubNumber;
+            xtfPingChanHeaderString += "\n\t\tContactType: " + this.ContactType;
+            xtfPingChanHeaderString += "\n\t\tNumSamples: " + this.NumSamples;
+            xtfPingChanHeaderString += "\n\t\tMillivoltScale: " + this.MillivoltScale;
+            xtfPingChanHeaderString += "\n\t\tContactTimeOffTrack: " + this.ContactTimeOffTrack;
+            xtfPingChanHeaderString += "\n\t\tContactCloseNumber: " + this.ContactCloseNumber;
+            xtfPingChanHeaderString += "\n\t\tReserved2: " + this.Reserved2;
+            xtfPingChanHeaderString += "\n\t\tFixedVSOP: " + this.FixedVSOP;
+            xtfPingChanHeaderString += "\n\t\tWeight: " + this.Weight;
             xtfPingChanHeaderString += "\n\t\tReservedSpace: " + this.ReservedSpace;
             xtfPingChanHeaderString += "\n\t\tLength of data: "+ this.data_bytes.Count() + "\t10 item sample: " + this.data_bytes[0..10];
             return xtfPingChanHeaderString;
