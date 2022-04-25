@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\juanb\Desktop\XTF TFG\Proyectos XTF\ProyectosNET\SideScanAnalyzer\App.xaml
-2306265827
+31911752379
 
-28-228669901
-201-703867984
-Views\MainWindow.xaml;Views\XTFFileItem.xaml;
+46-1924694871
+203-767499503
+Views\MainWindow.xaml;Views\ProjectNameDialog.xaml;Views\XTFFileItemView.xaml;
 
 False
 

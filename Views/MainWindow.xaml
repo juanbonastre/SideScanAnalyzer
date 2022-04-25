@@ -5,33 +5,78 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SideScanAnalyzer"
         xmlns:VM="clr-namespace:SideScanAnalyzer.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:core="clr-namespace:SideScanAnalyzer.Core"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding ProjectInfo.ProjectName}" Height="450" Width="800">
 
     <Window.DataContext>
         <VM:MainWindowViewModel/>
     </Window.DataContext>
 
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolConverter" />
+        <core:InverseBooleanConverter x:Key="InverseBoolConverter"/>
+    </Window.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding CloseCommand}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding NewProjectCommand}"/>
+        <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding OpenProjectCommand}"/>
+        <KeyBinding Key="X" Modifiers="Ctrl" Command="{Binding LoadFileCommand}"/>
+        <KeyBinding Key="X" Modifiers="Ctrl+Alt" Command="{Binding LoadFolderCommand}"/>
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SaveCommand}"/>
+        <KeyBinding Key="S" Modifiers="Ctrl+Alt" Command="{Binding SaveAsCommand}"/>
+        <KeyBinding Key="R" Modifiers="Ctrl" Command="{Binding AnalyzeCommand}"/>
+    </Window.InputBindings>
+
     <DockPanel>
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button Name="OpenButton" Command="{Binding OpenFileCommand}" Content="Abrir Archivo" />
-                <Button Name="OpenFolderButton" Command="{Binding OpenFolderCommand}" Content="Abrir Carpeta" />
-                <Button Name="AnalyzeButton" Command="{Binding AnalyzeCommand}" Content="Analizar" />
+                <Menu Background="Transparent">
+                    <MenuItem Header="Archivo">
+                        <MenuItem Header="Nuevo proyecto (Ctrl+N)" Command="{Binding NewProjectCommand}"/>
+                        <MenuItem Header="Abrir proyecto (Ctrl+O)" Command="{Binding OpenProjectCommand}"/>
+                        <MenuItem Header="Guardar proyecto (Ctrl+S)" Command="{Binding SaveCommand}"/>
+                        <MenuItem Header="Guardar proyecto como (Ctrl+Alt+S)" Command="{Binding SaveAsCommand}"/>
+                        <MenuItem Header="Cargar archivo XTF (Ctrl+X)"  Command="{Binding LoadFileCommand}"/>
+                        <MenuItem Header="Cargar acarpeta (Ctrl+Alt+X)" Command="{Binding LoadFolderCommand}"/>
+                        
+                    </MenuItem>
+                    <MenuItem Header="Proyecto">
+                        <MenuItem Header="Analizar Todo (Ctrl+R)" Command="{Binding AnalyzeCommand}"/>
+                        <MenuItem Header="Exportar Análisis" Command="{Binding ExportAllAnalysisCommand}"/>
+                        <MenuItem Header="Mostrar información del proyecto" Command="{Binding ShowProjectInfoCommand}"/>
+                    </MenuItem> 
+                </Menu>
                 <Button Name="TEST" Content="TEST" Command="{Binding TestCommmand}"/>
             </ToolBar>
         </ToolBarTray>
-        <Grid DockPanel.Dock="Bottom">
+        <Grid DockPanel.Dock="Top"  >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.25*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="30px"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Visibility="{Binding ProjectInfo.ProjectLoaded, Converter={StaticResource BoolConverter}}">
                 <ItemsControl Name="XTFItemsControl" ItemsSource="{Binding XTFFilesList}"/>
             </ScrollViewer>
-            <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Visibility="{Binding ProjectInfo.ProjectLoaded, Converter={StaticResource BoolConverter}}">
                 <Image Name="XTFImageViewer" Source="{Binding XTFImageSource}"/>
             </ScrollViewer>
+            <Label DockPanel.Dock="Bottom" Grid.ColumnSpan="2"  Name="Label" HorizontalAlignment="Center" VerticalAlignment="Center"  Visibility="{Binding ProjectInfo.ProjectLoaded, Converter={StaticResource InverseBoolConverter}}">
+                Crea un nuevo proyecto (Ctrl+N) o abra uno (Ctrl+O) para comenzar
+            </Label>
+            <Grid  Background="#EEEE" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" >
+                <Label Name="StatusLabel" Content="{Binding StatusString}" VerticalAlignment="Center"/>
+            </Grid>
         </Grid>
     </DockPanel>
 </Window>

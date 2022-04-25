@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "4j082MNVU60cijkmsS4pyu8GnyvTLStvuJVCPjg9na6Nts1s3LEe0tS0vSevvjAnSW/dF9yajrZQIoU+kUZ9pQ==",
+  "dgSpecHash": "6KKtAmSujx4KRNAWyM/rn1CX45Vq7icAw7wfvsze8h2g1DKyeBcs22XjmmTT48okRc+4UAnMf2V3sIfvprlerw==",
   "success": true,
   "projectFilePath": "C:\\Users\\juanb\\Desktop\\XTF TFG\\Proyectos XTF\\ProyectosNET\\SideScanAnalyzer\\SideScanAnalyzer.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\juanb\\.nuget\\packages\\communitytoolkit.mvvm\\7.1.2\\communitytoolkit.mvvm.7.1.2.nupkg.sha512",
     "C:\\Users\\juanb\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\juanb\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
     "C:\\Users\\juanb\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\juanb\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
     "C:\\Users\\juanb\\.nuget\\packages\\windowsapicodepack\\1.1.2\\windowsapicodepack.1.1.2.nupkg.sha512"

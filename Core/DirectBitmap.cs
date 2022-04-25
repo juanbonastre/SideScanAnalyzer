@@ -32,6 +32,14 @@ namespace SideScanAnalyzer.Core
             BitsHandle = GCHandle.Alloc(Bits, GCHandleType.Pinned);
             Bitmap = new Bitmap(width, height, width * 4, PixelFormat.Format32bppPArgb, BitsHandle.AddrOfPinnedObject());
         }
+        public DirectBitmap(string filePath)
+        {
+            Bitmap = new Bitmap(filePath);
+            Width = Bitmap.Size.Width;
+            Height = Bitmap.Size.Height;
+            Bits = new Int32[Width * Height];
+            BitsHandle = GCHandle.Alloc(Bits, GCHandleType.Pinned);
+        }
 
         public void SetPixel(int x, int y, Color colour)
         {
@@ -58,9 +66,9 @@ namespace SideScanAnalyzer.Core
             BitsHandle.Free();
         }
 
-        public void PaintLine(double x1, double x2, double y1, double y2)
+        public void PaintLine(double x1, double x2, double y1, double y2, double prediction)
         {
-            Trace.WriteLine("x1:"+x1+"-x2:"+x2+" | y1:"+y1+"-y2:"+y2);
+            // Trace.WriteLine("x1:"+x1+"-x2:"+x2+" | y1:"+y1+"-y2:"+y2);
             if (x1 > Width || x2 > Width || y1 > Height || y2 > Height)
             {
                 return;
@@ -75,18 +83,30 @@ namespace SideScanAnalyzer.Core
             y2 -= 1;
             if (y2 < 0) y2 = 0;
 
+            Color color = Color.FromArgb(255, 255, Convert.ToInt32(255*Math.Abs(1-prediction)), 0);
+
             // Upper and Bottom line
             for (int i = (int)Math.Truncate(x1); i < x2; i++)
             {
                 // Trace.WriteLine("i:"+i+"-y1:"+y1+" | i:"+i+"-y2:"+y2);
-                SetPixel(i, (int)y1, Color.Red);
-                SetPixel(i, (int)y2, Color.Red);
+                SetPixel(i, (int)y1, color);
+                SetPixel(i, (int)y2, color);
+
+                if (y1-1>0) SetPixel(i, (int)y1-1, color);
+                if (y2-1>0) SetPixel(i, (int)y2-1, color);
+                if (y1+1<Height) SetPixel(i, (int)y1+1, color);
+                if (y2+1<Height) SetPixel(i, (int)y2+1, color);
             }
             // Right and Left line
             for (int i = (int)Math.Truncate(y1); i < y2; i++)
             {
-                SetPixel((int)x1, i, Color.Red);
-                SetPixel((int)x2, i, Color.Red);
+                SetPixel((int)x1, i, color);
+                SetPixel((int)x2, i, color);
+
+                if (x1-1>0) SetPixel((int)x1-1, i, color);
+                if (x2-1>0) SetPixel((int)x2-1, i, color);
+                if (x1+1<Width) SetPixel((int)x1+1, i, color);
+                if (x2+1<Width) SetPixel((int)x2+1, i, color);
             }
         }
     }

@@ -7,7 +7,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Views\XTFFileItem.xaml.cs">
+    <Compile Update="Views\ProjectNameDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\XTFFileItemView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -15,7 +18,10 @@
     <Page Update="Views\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\XTFFileItem.xaml">
+    <Page Update="Views\ProjectNameDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\XTFFileItemView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
